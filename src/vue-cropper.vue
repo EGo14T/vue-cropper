@@ -11,7 +11,7 @@
 					+ 'rotateZ('+ rotate * 90 +'deg)'
 					}"
       >
-        <img :src="imgs" alt="cropper-img" ref="cropperImg">
+        <img :src="imgs" alt="cropper-img" ref="cropperImg" />
       </div>
     </div>
     <div
@@ -39,7 +39,7 @@
 						}"
           :src="imgs"
           alt="cropper-img"
-        >
+        />
       </span>
       <span class="cropper-face cropper-move" @mousedown="cropMove" @touchstart="cropMove"></span>
       <span
@@ -48,26 +48,10 @@
         :style="{'top': cropInfo.top}"
       >{{ this.cropInfo.width }} × {{ this.cropInfo.height }}</span>
       <span v-if="!fixedBox">
-        <span
-          class="crop-line line-w"
-          @mousedown="changeCropSize($event, false, true, 0, 1)"
-          @touchstart="changeCropSize($event, false, true, 0, 1)"
-        ></span>
-        <span
-          class="crop-line line-a"
-          @mousedown="changeCropSize($event, true, false, 1, 0)"
-          @touchstart="changeCropSize($event, true, false, 1, 0)"
-        ></span>
-        <span
-          class="crop-line line-s"
-          @mousedown="changeCropSize($event, false, true, 0, 2)"
-          @touchstart="changeCropSize($event, false, true, 0, 2)"
-        ></span>
-        <span
-          class="crop-line line-d"
-          @mousedown="changeCropSize($event, true, false, 2, 0)"
-          @touchstart="changeCropSize($event, true, false, 2, 0)"
-        ></span>
+        <span class="crop-line line-w"></span>
+        <span class="crop-line line-a"></span>
+        <span class="crop-line line-s"></span>
+        <span class="crop-line line-d"></span>
         <span
           class="crop-point point8"
           @mousedown="changeCropSize($event, true, true, 2, 2)"
@@ -262,13 +246,13 @@ export default {
       default: "contain"
     },
     //限制最小区域,可传1以上的数字和字符串，限制长宽都是这么大
-    // 也可以传数组[90,90] 
+    // 也可以传数组[90,90]
     limitMinSize: {
       type: [Number, Array, String],
       default: () => {
         return 10;
       }
-    },
+    }
   },
   computed: {
     cropInfo() {
@@ -298,14 +282,16 @@ export default {
 
     isIE() {
       var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
-      const isIE = !!window.ActiveXObject || 'ActiveXObject' in window; //判断是否IE浏览器
+      const isIE = !!window.ActiveXObject || "ActiveXObject" in window; //判断是否IE浏览器
       return isIE;
     },
 
-    passive () {
-      return this.isIE ? null : {
-        passive: false
-      }
+    passive() {
+      return this.isIE
+        ? null
+        : {
+            passive: false
+          };
     }
   },
   watch: {
@@ -441,7 +427,7 @@ export default {
       canvas.toBlob(
         blob => {
           let data = URL.createObjectURL(blob);
-          URL.revokeObjectURL(this.imgs)
+          URL.revokeObjectURL(this.imgs);
           this.imgs = data;
         },
         "image/" + this.outputType,
@@ -451,10 +437,10 @@ export default {
 
     // checkout img
     checkedImg() {
-      if (this.img === null || this.img === '') {
-        this.imgs = ''
-        this.clearCrop()
-        return
+      if (this.img === null || this.img === "") {
+        this.imgs = "";
+        this.clearCrop();
+        return;
       }
       this.loading = true;
       this.scale = 1;
@@ -885,10 +871,10 @@ export default {
           this.canChangeY = 0;
         }
       }
-      this.$emit('change-crop-size', {
+      this.$emit("change-crop-size", {
         width: this.cropW,
         height: this.cropH
-      })
+      });
     },
 
     // 正在改变
@@ -1029,20 +1015,20 @@ export default {
       });
     },
 
-    checkCropLimitSize () {
+    checkCropLimitSize() {
       let { cropW, cropH, limitMinSize } = this;
 
-      let limitMinNum = new Array;
+      let limitMinNum = new Array();
       if (!Array.isArray[limitMinSize]) {
-        limitMinNum = [limitMinSize, limitMinSize]
+        limitMinNum = [limitMinSize, limitMinSize];
       } else {
-        limitMinNum = limitMinSize
+        limitMinNum = limitMinSize;
       }
-      
+
       //限制最小宽度和高度
-      cropW = parseFloat(limitMinNum[0])
-      cropH = parseFloat(limitMinNum[1])
-      return [cropW, cropH]
+      cropW = parseFloat(limitMinNum[0]);
+      cropH = parseFloat(limitMinNum[1]);
+      return [cropW, cropH];
     },
     // 结束改变
     changeCropEnd(e) {
@@ -1544,7 +1530,7 @@ export default {
           }
           // 图片加载成功的回调
           this.$emit("img-load", "success");
-          this.$emit("imgLoad", "success");        
+          this.$emit("imgLoad", "success");
           setTimeout(() => {
             this.showPreview();
           }, 20);
@@ -1621,7 +1607,7 @@ export default {
     },
     // 自动截图函数
     goAutoCrop(cw, ch) {
-      if (this.imgs === '' || this.imgs === null) return
+      if (this.imgs === "" || this.imgs === null) return;
       this.clearCrop();
       this.cropping = true;
       let maxWidth = this.w;
@@ -1671,7 +1657,7 @@ export default {
       // 判断是否大于容器
       this.cropW = w;
       this.cropH = h;
-      this.checkCropLimitSize()
+      this.checkCropLimitSize();
       this.$nextTick(() => {
         // 居中走一走
         this.cropOffsertX = (this.w - this.cropW) / 2;
@@ -1796,8 +1782,8 @@ export default {
   direction: ltr;
   touch-action: none;
   text-align: left;
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC");
-}
+  background: #292b2f;
+  }
 
 .cropper-box,
 .cropper-box-canvas,
@@ -1836,7 +1822,6 @@ export default {
 .cropper-modal {
   background: rgba(0, 0, 0, 0.5);
 }
-
 
 .cropper-view-box {
   display: block;
@@ -1885,28 +1870,24 @@ export default {
   top: -3px;
   left: 0;
   height: 5px;
-  cursor: n-resize;
 }
 
 .line-a {
   top: 0;
   left: -3px;
   width: 5px;
-  cursor: w-resize;
 }
 
 .line-s {
   bottom: -3px;
   left: 0;
   height: 5px;
-  cursor: s-resize;
 }
 
 .line-d {
   top: 0;
   right: -3px;
   width: 5px;
-  cursor: e-resize;
 }
 
 .crop-point {
