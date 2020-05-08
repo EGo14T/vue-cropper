@@ -53,41 +53,6 @@
         <span class="crop-line line-s"></span>
         <span class="crop-line line-d"></span>
         <span
-          class="crop-point point1"
-          @mousedown="changeCropSize($event, true, true, 1, 1)"
-          @touchstart="changeCropSize($event, true, true, 1, 1)"
-        ></span>
-        <span
-          class="crop-point point2"
-          @mousedown="changeCropSize($event, false, true, 0, 1)"
-          @touchstart="changeCropSize($event, false, true, 0, 1)"
-        ></span>
-        <span
-          class="crop-point point3"
-          @mousedown="changeCropSize($event, true, true, 2, 1)"
-          @touchstart="changeCropSize($event, true, true, 2, 1)"
-        ></span>
-        <span
-          class="crop-point point4"
-          @mousedown="changeCropSize($event, true, false, 1, 0)"
-          @touchstart="changeCropSize($event, true, false, 1, 0)"
-        ></span>
-        <span
-          class="crop-point point5"
-          @mousedown="changeCropSize($event, true, false, 2, 0)"
-          @touchstart="changeCropSize($event, true, false, 2, 0)"
-        ></span>
-        <span
-          class="crop-point point6"
-          @mousedown="changeCropSize($event, true, true, 1, 2)"
-          @touchstart="changeCropSize($event, true, true, 1, 2)"
-        ></span>
-        <span
-          class="crop-point point7"
-          @mousedown="changeCropSize($event, false, true, 0, 2)"
-          @touchstart="changeCropSize($event, false, true, 0, 2)"
-        ></span>
-        <span
           class="crop-point point8"
           @mousedown="changeCropSize($event, true, true, 2, 2)"
           @touchstart="changeCropSize($event, true, true, 2, 2)"
