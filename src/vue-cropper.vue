@@ -1812,7 +1812,7 @@ export default {
 }
 
 .cropper-move {
-  cursor: move;
+  cursor: default;
 }
 
 .cropper-crop {
@@ -1841,6 +1841,7 @@ export default {
 }
 
 .cropper-face {
+  cursor: move;
   top: 0;
   left: 0;
   background-color: #fff;
