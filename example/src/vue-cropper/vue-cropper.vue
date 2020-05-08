@@ -11,7 +11,7 @@
 					+ 'rotateZ('+ rotate * 90 +'deg)'
 					}"
       >
-        <img :src="imgs" alt="cropper-img" ref="cropperImg">
+        <img :src="imgs" alt="cropper-img" ref="cropperImg" />
       </div>
     </div>
     <div
@@ -39,7 +39,7 @@
 						}"
           :src="imgs"
           alt="cropper-img"
-        >
+        />
       </span>
       <span class="cropper-face cropper-move" @mousedown="cropMove" @touchstart="cropMove"></span>
       <span
@@ -48,6 +48,10 @@
         :style="{'top': cropInfo.top}"
       >{{ this.cropInfo.width }} × {{ this.cropInfo.height }}</span>
       <span v-if="!fixedBox">
+        <span class="crop-line line-w"></span>
+        <span class="crop-line line-a"></span>
+        <span class="crop-line line-s"></span>
+        <span class="crop-line line-d"></span>
         <span
           class="crop-point point1"
           @mousedown="changeCropSize($event, true, true, 1, 1)"
@@ -277,13 +281,13 @@ export default {
       default: "contain"
     },
     //限制最小区域,可传1以上的数字和字符串，限制长宽都是这么大
-    // 也可以传数组[90,90] 
+    // 也可以传数组[90,90]
     limitMinSize: {
       type: [Number, Array, String],
       default: () => {
         return 10;
       }
-    },
+    }
   },
   computed: {
     cropInfo() {
@@ -313,14 +317,16 @@ export default {
 
     isIE() {
       var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
-      const isIE = !!window.ActiveXObject || 'ActiveXObject' in window; //判断是否IE浏览器
+      const isIE = !!window.ActiveXObject || "ActiveXObject" in window; //判断是否IE浏览器
       return isIE;
     },
 
-    passive () {
-      return this.isIE ? null : {
-        passive: false
-      }
+    passive() {
+      return this.isIE
+        ? null
+        : {
+            passive: false
+          };
     }
   },
   watch: {
@@ -456,7 +462,7 @@ export default {
       canvas.toBlob(
         blob => {
           let data = URL.createObjectURL(blob);
-          URL.revokeObjectURL(this.imgs)
+          URL.revokeObjectURL(this.imgs);
           this.imgs = data;
         },
         "image/" + this.outputType,
@@ -466,10 +472,10 @@ export default {
 
     // checkout img
     checkedImg() {
-      if (this.img === null || this.img === '') {
-        this.imgs = ''
-        this.clearCrop()
-        return
+      if (this.img === null || this.img === "") {
+        this.imgs = "";
+        this.clearCrop();
+        return;
       }
       this.loading = true;
       this.scale = 1;
@@ -900,10 +906,10 @@ export default {
           this.canChangeY = 0;
         }
       }
-      this.$emit('change-crop-size', {
+      this.$emit("change-crop-size", {
         width: this.cropW,
         height: this.cropH
-      })
+      });
     },
 
     // 正在改变
@@ -1044,20 +1050,20 @@ export default {
       });
     },
 
-    checkCropLimitSize () {
+    checkCropLimitSize() {
       let { cropW, cropH, limitMinSize } = this;
 
-      let limitMinNum = new Array;
+      let limitMinNum = new Array();
       if (!Array.isArray[limitMinSize]) {
-        limitMinNum = [limitMinSize, limitMinSize]
+        limitMinNum = [limitMinSize, limitMinSize];
       } else {
-        limitMinNum = limitMinSize
+        limitMinNum = limitMinSize;
       }
-      
+
       //限制最小宽度和高度
-      cropW = parseFloat(limitMinNum[0])
-      cropH = parseFloat(limitMinNum[1])
-      return [cropW, cropH]
+      cropW = parseFloat(limitMinNum[0]);
+      cropH = parseFloat(limitMinNum[1]);
+      return [cropW, cropH];
     },
     // 结束改变
     changeCropEnd(e) {
@@ -1559,7 +1565,7 @@ export default {
           }
           // 图片加载成功的回调
           this.$emit("img-load", "success");
-          this.$emit("imgLoad", "success");        
+          this.$emit("imgLoad", "success");
           setTimeout(() => {
             this.showPreview();
           }, 20);
@@ -1636,7 +1642,7 @@ export default {
     },
     // 自动截图函数
     goAutoCrop(cw, ch) {
-      if (this.imgs === '' || this.imgs === null) return
+      if (this.imgs === "" || this.imgs === null) return;
       this.clearCrop();
       this.cropping = true;
       let maxWidth = this.w;
@@ -1686,7 +1692,7 @@ export default {
       // 判断是否大于容器
       this.cropW = w;
       this.cropH = h;
-      this.checkCropLimitSize()
+      this.checkCropLimitSize();
       this.$nextTick(() => {
         // 居中走一走
         this.cropOffsertX = (this.w - this.cropW) / 2;
@@ -1811,7 +1817,7 @@ export default {
   direction: ltr;
   touch-action: none;
   text-align: left;
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC");
+  background: #292b2f;
 }
 
 .cropper-box,
@@ -1840,20 +1846,12 @@ export default {
   overflow: hidden;
 }
 
-.cropper-move {
-  cursor: move;
-}
-
 .cropper-crop {
   cursor: crosshair;
 }
 
 .cropper-modal {
   background: rgba(0, 0, 0, 0.5);
-}
-
-.cropper-crop-box {
-  /*border: 2px solid #39f;*/
 }
 
 .cropper-view-box {
@@ -1874,6 +1872,7 @@ export default {
 }
 
 .cropper-face {
+  cursor: move;
   top: 0;
   left: 0;
   background-color: #fff;
@@ -1903,28 +1902,24 @@ export default {
   top: -3px;
   left: 0;
   height: 5px;
-  cursor: n-resize;
 }
 
 .line-a {
   top: 0;
   left: -3px;
   width: 5px;
-  cursor: w-resize;
 }
 
 .line-s {
   bottom: -3px;
   left: 0;
   height: 5px;
-  cursor: s-resize;
 }
 
 .line-d {
   top: 0;
   right: -3px;
   width: 5px;
-  cursor: e-resize;
 }
 
 .crop-point {
@@ -1934,52 +1929,6 @@ export default {
   opacity: 0.75;
   background-color: #39f;
   border-radius: 100%;
-}
-
-.point1 {
-  top: -4px;
-  left: -4px;
-  cursor: nw-resize;
-}
-
-.point2 {
-  top: -5px;
-  left: 50%;
-  margin-left: -3px;
-  cursor: n-resize;
-}
-
-.point3 {
-  top: -4px;
-  right: -4px;
-  cursor: ne-resize;
-}
-
-.point4 {
-  top: 50%;
-  left: -4px;
-  margin-top: -3px;
-  cursor: w-resize;
-}
-
-.point5 {
-  top: 50%;
-  right: -4px;
-  margin-top: -3px;
-  cursor: e-resize;
-}
-
-.point6 {
-  bottom: -5px;
-  left: -4px;
-  cursor: sw-resize;
-}
-
-.point7 {
-  bottom: -5px;
-  left: 50%;
-  margin-left: -3px;
-  cursor: s-resize;
 }
 
 .point8 {
