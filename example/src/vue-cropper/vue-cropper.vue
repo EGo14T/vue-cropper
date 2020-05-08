@@ -49,26 +49,6 @@
       >{{ this.cropInfo.width }} × {{ this.cropInfo.height }}</span>
       <span v-if="!fixedBox">
         <span
-          class="crop-line line-w"
-          @mousedown="changeCropSize($event, false, true, 0, 1)"
-          @touchstart="changeCropSize($event, false, true, 0, 1)"
-        ></span>
-        <span
-          class="crop-line line-a"
-          @mousedown="changeCropSize($event, true, false, 1, 0)"
-          @touchstart="changeCropSize($event, true, false, 1, 0)"
-        ></span>
-        <span
-          class="crop-line line-s"
-          @mousedown="changeCropSize($event, false, true, 0, 2)"
-          @touchstart="changeCropSize($event, false, true, 0, 2)"
-        ></span>
-        <span
-          class="crop-line line-d"
-          @mousedown="changeCropSize($event, true, false, 2, 0)"
-          @touchstart="changeCropSize($event, true, false, 2, 0)"
-        ></span>
-        <span
           class="crop-point point1"
           @mousedown="changeCropSize($event, true, true, 1, 1)"
           @touchstart="changeCropSize($event, true, true, 1, 1)"
