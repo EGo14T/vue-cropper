@@ -1012,7 +1012,22 @@ export default {
             this.cropW = fixedWidth;
           }
         }
-		      this.checkCropLimitSize();
+
+        let { cropW, cropH, limitMinSize } = this;
+
+        let limitMinNum = new Array;
+        if (!Array.isArray[limitMinSize]) {
+          limitMinNum = [limitMinSize, limitMinSize]
+        } else {
+          limitMinNum = limitMinSize
+        }
+        //限制最小宽度和高度
+        if (parseFloat(limitMinNum[0]) && cropW < parseFloat(limitMinNum[0])) {
+          this.cropW = limitMinNum[0]
+        }
+        if (parseFloat(limitMinNum[1]) && cropH < parseFloat(limitMinNum[1])) {
+          this.cropH = limitMinNum[1]
+        }
       });
     },
 
