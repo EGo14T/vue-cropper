@@ -1012,6 +1012,7 @@ export default {
             this.cropW = fixedWidth;
           }
         }
+		      this.checkCropLimitSize();
       });
     },
 
